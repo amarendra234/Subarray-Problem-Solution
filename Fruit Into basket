@@ -1,0 +1,21 @@
+class Solution {
+  public:
+    int totalFruits(vector<int> &arr) {
+        int left=0,right=0;
+        int ans=INT_MIN;
+        unordered_map<int,int>umap;
+        while(right<arr.size()){
+            umap[arr[right]]++;
+            if(umap.size()>2){
+                umap[arr[left]]--;
+                if(umap[arr[left]]==0){
+                    umap.erase(arr[left]);
+                }
+                left++;
+            }
+            ans=max(ans,right-left+1);
+            right++;
+        }
+        return ans;
+    }
+};
