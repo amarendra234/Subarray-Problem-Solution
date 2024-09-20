@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int max_point(vector<int>&nums,int k,int i,int j){
+        if(i>j || k==0){
+            return 0;
+        }
+        int ans1=nums[i]+max_point(nums,k-1,i+1,j);
+        int ans2=nums[j]+max_point(nums,k-1,i,j-1);
+        return max(ans1,ans2);
+    }
+    int maxScore(vector<int>& cardPoints, int k) {
+       int lsum=0,rsum=0,max_sum=0;
+       for(int i=0;i<k && i<cardPoints.size();i++){
+            lsum+=cardPoints[i];
+       }
+       if(k>=cardPoints.size()){
+             return lsum;
+       }
+       int lst=cardPoints.size()-1;
+       max_sum=lsum;
+       while(k>0){
+             lsum-=cardPoints[k-1];
+             rsum+=cardPoints[lst];
+             max_sum=max(max_sum,lsum+rsum);
+             lst--;
+             k--;
+       }
+       return max_sum;
+    }
+};
