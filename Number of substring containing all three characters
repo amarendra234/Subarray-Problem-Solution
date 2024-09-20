@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        // making minimum side window and also try to make every character is last character
+        int a=-1,b=-1,c=-1,ans=0;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='a'){
+                a=i;
+            }
+            if(s[i]=='b'){
+                b=i;
+            }
+            if(s[i]=='c'){
+                c=i;
+            }
+            int index=min(a,min(b,c));
+            ans+=(index+1);
+        }
+        return ans;
+        
+    }
+};
