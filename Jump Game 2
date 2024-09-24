@@ -1,0 +1,23 @@
+// Function to return minimum number of jumps to end of array
+
+class Solution {
+  public:
+    int minJumps(vector<int>& arr) {
+        // Your code here
+        int maxi=arr[0];
+        int end=arr[0];
+        int ans=1;
+        for(int i=1;i<arr.size();i++){
+         if(maxi<i){
+                return -1;
+            }
+            if(i>end){
+                ans++;
+                end=maxi;
+            }
+            maxi=max(maxi,arr[i]+i);
+            
+        }
+        return ans;
+    }
+};
