@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool canArrange(vector<int>& arr, int k) {
+        unordered_map<int,int>umap;
+        for(int i=0;i<arr.size();i++){
+            int rem=((arr[i]%k)+k)%k;
+            umap[rem]++;
+        }
+        unordered_map<int,int>check;
+        //sort(arr.begin(),arr.end());
+        for(int i=0;i<arr.size();i++){
+            int rem=((arr[i]%k)+k)%k;
+            if(check.find(rem)!=check.end() and check[rem]>0){
+                check[rem]--;
+                continue;
+            }
+            umap[rem]--;
+            if(umap.find((k-rem)%k)!=umap.end() and umap[(k-rem)%k]>0){
+                   umap[(k-rem)%k]--;
+                   check[(k-rem)%k]++;
+            }else{
+                return false;
+            }
+
+        }
+        return true;
+    }
+};
