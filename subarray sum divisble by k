@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int prefix_sum=0;
+        unordered_map<int,int>umap;
+        umap[0]++;
+        int ans=0;
+        for(int i=1;i<nums.size();i++){
+            nums[i]+=nums[i-1];
+        }
+        for(int i=0;i<nums.size();i++){
+               prefix_sum=((nums[i]%k)+k)%k;
+            if(umap.find(prefix_sum)!=umap.end()){
+                ans+=umap[prefix_sum];
+            }
+            umap[prefix_sum]++;
+        }
+        return ans;
+    }
+};
