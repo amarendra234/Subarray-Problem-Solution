@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        int umap[26];
+        for(int i=0;i<26;i++){
+            umap[i]=0;
+        }
+        for(int i=0;i<s1.length();i++){
+            umap[s1[i]-'a']++;
+        }
+        int count=0;
+        int left=0;
+        int min_length=INT_MAX;
+        for(int i=0;i<s2.size();i++){
+            if(umap[s2[i]-'a']>0){
+                count++;
+                umap[s2[i]-'a']--;
+                while(count==s1.size()){
+                      if(min_length>i-left+1){
+                        min_length=i-left+1;
+                      }
+                      umap[s2[left]-'a']++;
+                      if(umap[s2[left]-'a']>0){
+                            count--;
+                      }
+                      left++;
+                }
+            }else{
+                umap[s2[i]-'a']--;
+            }
+        }
+        if(min_length==s1.size()){
+            return true;
+        }
+        return false;
+    }
+};
